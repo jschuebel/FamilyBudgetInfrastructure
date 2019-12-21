@@ -28,10 +28,14 @@ namespace FamilyBudget.Infrastructure.DataContext
     //             entity.ToTable("CategoryXrefs");
                  entity.HasNoKey();
               });
-    //         modelBuilder.Entity<Purchase>(entity =>
-    //          {
-    //              entity.ToTable("Purchases");
-    //          });
+             modelBuilder.Entity<Product>(entity =>
+             {
+                  //entity.ToTable("Purchases");
+                  entity.HasKey(x => x.ProductID);
+                  entity.Property(e => e.ProductID)
+                        .IsRequired()
+                        .ValueGeneratedOnAdd();
+             });
           }
 
     }
