@@ -28,11 +28,34 @@ namespace FamilyBudget.Infrastructure.Repositories
             return filteredList;
         }
 
-        public CategoryXref Create(CategoryXref evt) { return null;}
-        public CategoryXref GetById(int id) {return null;}
-        public CategoryXref Update(CategoryXref evt) {return null;}
-        //Delete Data
-        public bool Delete(int id) {return false;}
+        public CategoryXref Add(CategoryXref obj) 
+        {
+            /*/
+            if (Person.Type != null)
+            {
+                _ctx.Attach(Person.Type).State = EntityState.Unchanged;
+            }*/
+            var objCreated = _ctx.CategoryXrefs.Add(obj).Entity;
+            return objCreated;
+        }
+        public void Save() 
+        {
+            _ctx.SaveChanges();
+        }
+
+        //Delete Data  -- Remove all xrefs for this ProductID
+        public bool Delete(int id) 
+        {
+            /*var ordersToRemove = _ctx.Orders.Where(o => o.Person.Id == id);
+            _ctx.RemoveRange(ordersToRemove);*/
+            var cats = _ctx.CategoryXrefs.Where(x=>x.ProductID==id);
+            if (cats==null) return false;
+            _ctx.RemoveRange(cats);
+
+            _ctx.SaveChanges();
+            return true;
+        }
+
     }
 }
 

@@ -41,6 +41,7 @@ namespace FamilyBudget.Infrastructure.Repositories
             {
                 _ctx.Attach(Person.Type).State = EntityState.Unchanged;
             }*/
+            obj.CostOverride=obj.CostOverride!=null? obj.CostOverride*100.0:null;
             var objCreated = _ctx.Purchases.Add(obj).Entity;
             _ctx.SaveChanges();
             return objCreated;
@@ -48,6 +49,7 @@ namespace FamilyBudget.Infrastructure.Repositories
 
         public Purchase Update(Purchase obj) 
                {
+            obj.CostOverride=obj.CostOverride!=null? obj.CostOverride*100.0:null;
             _ctx.Attach(obj).State = EntityState.Modified;
        /*     _ctx.Entry(PersonUpdate).Collection(c => c.Orders).IsModified = true;
             _ctx.Entry(PersonUpdate).Reference(c => c.Type).IsModified = true;
