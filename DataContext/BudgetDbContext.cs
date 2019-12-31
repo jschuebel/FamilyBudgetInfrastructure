@@ -17,7 +17,7 @@ namespace FamilyBudget.Infrastructure.DataContext
         public DbSet<CategoryXref> CategoryXrefs { get; set; }
         
             
-        // protected override void OnConfiguring(DbContextOptionsBuilder options)
+         //protected override void OnConfiguring(DbContextOptionsBuilder options) 
         //     => options.UseSqlite(@"Data Source=budget.db");
 
        protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,6 +36,10 @@ namespace FamilyBudget.Infrastructure.DataContext
                   entity.Property(e => e.ProductID)
                         .IsRequired()
                         .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.Title)
+                        .HasColumnType("TEXT COLLATE NOCASE");
+                        //.HasConversion(v => v.ToLowerInvariant(), v => v);
              });
 
              modelBuilder.Entity<Purchase>(entity =>
@@ -52,6 +56,10 @@ namespace FamilyBudget.Infrastructure.DataContext
                   entity.Property(e => e.CategoryID)
                         .IsRequired()
                         .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.Title)
+                        .HasColumnType("TEXT COLLATE NOCASE");
+
              });
           }
 
